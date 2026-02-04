@@ -92,9 +92,9 @@ export default function LoginPage() {
       <div className="mt-8 p-4">
         <p className="text-xs font-semibold mb-2">Test Accounts:</p>
         <ul className="text-xs text-[var(--color-muted-gray)] space-y-1">
-          <li>artist@example.com / any password</li>
-          <li>organizer@example.com / any password</li>
-          <li>visitor@example.com / any password</li>
+          <li>Artist: shramenkoa33333@gmail.com / 12341234</li>
+          <li>Visitor: romantrublono@gmail.com / gemini31</li>
+          <li>Organiser: visitor@example.com / any password</li>
         </ul>
       </div>
     </div>

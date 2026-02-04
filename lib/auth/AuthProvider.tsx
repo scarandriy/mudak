@@ -7,7 +7,7 @@ import { User, UserRole } from '@/lib/types';
 interface AuthContextType extends AuthState {
   login: (email: string, password: string) => Promise<{ success: boolean; user?: User; error?: string }>;
   register: (email: string, password: string, name: string, role: string) => Promise<{ success: boolean; user?: User; error?: string }>;
-  logout: () => void;
+  logout: () => void | Promise<void>;
   hasRole: (role: string) => boolean;
   hasAnyRole: (roles: string[]) => boolean;
 }
@@ -47,9 +47,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return authStore.register(email, password, name, role as UserRole);
   };
 
-  const logout = () => {
-    authStore.logout();
-    // Redirect to home after logout
+  const logout = async () => {
+    setState({ user: null, isLoading: false });
+    await authStore.logout();
     if (typeof window !== 'undefined') {
       window.location.href = '/';
     }
