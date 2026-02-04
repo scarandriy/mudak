@@ -28,7 +28,7 @@ export function VerifyExhibitionButton({ exhibitionId, isVerified }: VerifyExhib
       } else {
         alert(`Failed to verify exhibition: ${result.error || 'Unknown error'}`);
       }
-    } catch (_error) {
+    } catch {
       alert('An error occurred while verifying the exhibition.');
     } finally {
       setIsLoading(false);

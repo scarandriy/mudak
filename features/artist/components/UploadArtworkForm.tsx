@@ -78,7 +78,7 @@ export function UploadArtworkForm({ artistId, artistName: _artistName }: UploadA
       } else {
         setError(result.error || 'Failed to create artwork. Please try again.');
       }
-    } catch (_err) {
+    } catch {
       setError('Failed to upload artwork. Please try again.');
     } finally {
       setIsLoading(false);

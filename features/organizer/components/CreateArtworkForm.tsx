@@ -77,7 +77,7 @@ export function CreateArtworkForm({ artists }: CreateArtworkFormProps) {
       } else {
         setError(result.error || 'Failed to create artwork. Please try again.');
       }
-    } catch (_err) {
+    } catch {
       setError('Failed to create artwork. Please try again.');
     } finally {
       setIsLoading(false);

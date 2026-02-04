@@ -54,7 +54,7 @@ export function ExhibitionRegistration({ exhibition, userId, userName: _userName
         setStatus('error');
         alert(result.error || 'Failed to register. Please try again.');
       }
-    } catch (_error) {
+    } catch {
       setStatus('error');
       alert('Failed to register. Please try again.');
     } finally {
@@ -87,7 +87,7 @@ export function ExhibitionRegistration({ exhibition, userId, userName: _userName
       } else {
         alert('Failed to cancel registration. Please try again.');
       }
-    } catch (_error) {
+    } catch {
       alert('Failed to cancel registration. Please try again.');
     } finally {
       setIsUnregistering(false);

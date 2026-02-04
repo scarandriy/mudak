@@ -55,7 +55,7 @@ export function ArtistProfileForm({ user }: ArtistProfileFormProps) {
       } else {
         setError(result.error || 'Failed to update profile');
       }
-    } catch (_err) {
+    } catch {
       setError('Failed to update profile');
     } finally {
       setIsLoading(false);

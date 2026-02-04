@@ -40,7 +40,7 @@ export async function PATCH(
       const rejectedExhibition = await exhibitionRepository.reject(id, feedback);
       return NextResponse.json({ success: true, exhibition: rejectedExhibition });
     }
-  } catch (_error) {
+  } catch {
     return NextResponse.json(
       { success: false, error: 'An error occurred while processing verification' },
       { status: 500 }

@@ -36,7 +36,7 @@ export function DeleteExhibitionButton({ exhibitionId, exhibitionTitle: _exhibit
       } else {
         alert('Failed to delete exhibition');
       }
-    } catch (_error) {
+    } catch {
       alert('Failed to delete exhibition');
     } finally {
       setIsLoading(false);

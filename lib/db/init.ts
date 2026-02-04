@@ -184,7 +184,7 @@ async function checkSchemaExists(): Promise<boolean> {
       )`
     );
     return result.rows[0].exists;
-  } catch (_error) {
+  } catch {
     return false;
   }
 }
@@ -224,7 +224,7 @@ export async function initializeDatabase(): Promise<void> {
         const pool = getPool();
         try {
           await pool.query('SELECT 1');
-        } catch (_error) {
+        } catch {
           console.log('Reconnecting to database...');
           await closePool();
           const newPool = getPool();

@@ -63,7 +63,7 @@ export async function PATCH(
     const updatedArtwork = await artworkRepository.update(id, updateData);
     
     return NextResponse.json({ success: true, artwork: updatedArtwork });
-  } catch (_error) {
+  } catch {
     return NextResponse.json(
       { success: false, error: 'An error occurred while updating artwork' },
       { status: 500 }
@@ -107,7 +107,7 @@ export async function DELETE(
     const success = await artworkRepository.delete(id);
     
     return NextResponse.json({ success });
-  } catch (_error) {
+  } catch {
     return NextResponse.json(
       { success: false, error: 'An error occurred while deleting artwork' },
       { status: 500 }

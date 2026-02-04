@@ -29,7 +29,7 @@ export function DeleteArtworkButton({ artworkId, artworkTitle: _artworkTitle }: 
       } else {
         alert('Failed to delete artwork');
       }
-    } catch (_error) {
+    } catch {
       alert('Failed to delete artwork');
     } finally {
       setIsLoading(false);

@@ -36,7 +36,7 @@ export function SubmissionList({ submissions }: SubmissionListProps) {
       } else {
         alert('Failed to approve submission');
       }
-    } catch (_error) {
+    } catch {
       alert('Failed to approve submission');
     } finally {
       setProcessingId(null);
@@ -66,7 +66,7 @@ export function SubmissionList({ submissions }: SubmissionListProps) {
       } else {
         alert('Failed to reject submission');
       }
-    } catch (_error) {
+    } catch {
       alert('Failed to reject submission');
     } finally {
       setProcessingId(null);

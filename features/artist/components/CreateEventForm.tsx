@@ -76,7 +76,7 @@ export function CreateEventForm({ organizerId, organizerName: _organizerName, ar
       } else {
         setError(result.error || 'Failed to create event. Please try again.');
       }
-    } catch (_err) {
+    } catch {
       setError('Failed to create event. Please try again.');
     } finally {
       setIsLoading(false);

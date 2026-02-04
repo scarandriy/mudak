@@ -51,7 +51,7 @@ export async function PATCH(
     });
 
     return NextResponse.json({ success: true, exhibition: updatedExhibition });
-  } catch (_error) {
+  } catch {
     return NextResponse.json(
       { success: false, error: 'An error occurred while updating exhibition' },
       { status: 500 }
@@ -95,7 +95,7 @@ export async function DELETE(
     const success = await exhibitionRepository.delete(id);
     
     return NextResponse.json({ success });
-  } catch (_error) {
+  } catch {
     return NextResponse.json(
       { success: false, error: 'An error occurred while deleting exhibition' },
       { status: 500 }

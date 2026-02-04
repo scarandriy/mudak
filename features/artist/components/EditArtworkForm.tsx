@@ -100,7 +100,7 @@ export function EditArtworkForm({ artwork, artists }: EditArtworkFormProps) {
       } else {
         setError(result.error || 'Failed to update artwork. Please try again.');
       }
-    } catch (_err) {
+    } catch {
       setError('Failed to update artwork. Please try again.');
     } finally {
       setIsLoading(false);
