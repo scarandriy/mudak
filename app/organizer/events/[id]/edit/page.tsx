@@ -5,9 +5,8 @@ import { PageHeader } from '@/shared/components/PageHeader';
 import { EditEventForm } from '@/features/artist/components/EditEventForm';
 
 export default async function EditOrganizerEventPage({ params }: { params: Promise<{ id: string }> }) {
-  let user;
   try {
-    user = await requireRole('organizer');
+    await requireRole('organizer');
   } catch {
     redirect('/login');
   }

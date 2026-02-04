@@ -3,9 +3,8 @@ import { requireRole } from '@/lib/auth/server';
 import { PageHeader } from '@/shared/components/PageHeader';
 
 export default async function AdminPage() {
-  let user;
   try {
-    user = await requireRole('admin');
+    await requireRole('admin');
   } catch {
     redirect('/login');
   }

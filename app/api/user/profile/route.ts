@@ -27,7 +27,7 @@ export async function PATCH(request: NextRequest) {
     });
 
     return NextResponse.json({ success: true, user: updatedUser });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json(
       { success: false, error: 'An error occurred while updating profile' },
       { status: 500 }

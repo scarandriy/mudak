@@ -1,6 +1,6 @@
 import 'server-only';
 import { query } from '@/lib/db/connection';
-import { Submission } from '@/lib/types';
+import { Artwork, Submission } from '@/lib/types';
 import { artworkRepository } from './ArtworkRepository';
 
 export class SubmissionRepository {
@@ -154,7 +154,7 @@ export class SubmissionRepository {
       feedback: string | null;
       submitted_at: Date;
     },
-    artwork: any,
+    artwork: Artwork,
     exhibitionTitle: string
   ): Submission {
     return {

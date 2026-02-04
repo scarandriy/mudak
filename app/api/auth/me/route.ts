@@ -1,6 +1,5 @@
 import 'server-only';
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 import { getServerUser } from '@/lib/auth/server';
 
 export async function GET() {

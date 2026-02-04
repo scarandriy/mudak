@@ -37,7 +37,7 @@ export function ExhibitionVerificationList({ exhibitions }: ExhibitionVerificati
       } else {
         alert(`Failed to verify exhibition: ${result.error || 'Unknown error'}`);
       }
-    } catch (error) {
+    } catch (_error) {
       alert('Failed to verify exhibition');
     } finally {
       setProcessingId(null);
@@ -68,7 +68,7 @@ export function ExhibitionVerificationList({ exhibitions }: ExhibitionVerificati
       } else {
         alert(`Failed to reject exhibition: ${result.error || 'Unknown error'}`);
       }
-    } catch (error) {
+    } catch (_error) {
       alert('Failed to reject exhibition');
     } finally {
       setProcessingId(null);

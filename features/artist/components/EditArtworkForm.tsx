@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Artwork, User } from '@/lib/types';
 import { Input } from '@/shared/ui/Input';
 import { Textarea } from '@/shared/ui/Textarea';
@@ -60,7 +61,13 @@ export function EditArtworkForm({ artwork, artists }: EditArtworkFormProps) {
       }
 
       // Update the artwork
-      const updateBody: any = {
+      const updateBody: {
+        title: string;
+        description: string;
+        type: string;
+        imageUrl: string;
+        artistId?: string;
+      } = {
         title,
         description,
         type,
@@ -93,7 +100,7 @@ export function EditArtworkForm({ artwork, artists }: EditArtworkFormProps) {
       } else {
         setError(result.error || 'Failed to update artwork. Please try again.');
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to update artwork. Please try again.');
     } finally {
       setIsLoading(false);
@@ -157,7 +164,7 @@ export function EditArtworkForm({ artwork, artists }: EditArtworkFormProps) {
         {artwork.imageUrl && (
           <div className="mb-2">
             <p className="text-xs text-[var(--color-muted-gray)] mb-2">Current image:</p>
-            <img src={artwork.imageUrl} alt={artwork.title} className="max-w-xs h-32 object-cover border border-black" />
+            <Image src={artwork.imageUrl} alt={artwork.title} width={320} height={128} className="max-w-xs h-32 object-cover border border-black" unoptimized />
           </div>
         )}
         <input

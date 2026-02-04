@@ -3,7 +3,6 @@ import { requireRole } from '@/lib/auth/server';
 import { getExhibitionsByOrganizer, getExhibitions } from '@/lib/data/api';
 import { PageHeader } from '@/shared/components/PageHeader';
 import Link from 'next/link';
-import { Button } from '@/shared/ui/Button';
 
 export default async function OrganizerDashboard() {
   let user;

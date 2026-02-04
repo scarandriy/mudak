@@ -5,9 +5,8 @@ import { PageHeader } from '@/shared/components/PageHeader';
 import { EditArtworkForm } from '@/features/artist/components/EditArtworkForm';
 
 export default async function EditOrganizerArtworkPage({ params }: { params: Promise<{ id: string }> }) {
-  let user;
   try {
-    user = await requireRole('organizer');
+    await requireRole('organizer');
   } catch {
     redirect('/login');
   }

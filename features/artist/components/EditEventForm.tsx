@@ -97,7 +97,7 @@ export function EditEventForm({ exhibition, artworks }: EditEventFormProps) {
       } else {
         setError(result.error || 'Failed to update event. Please try again.');
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to update event. Please try again.');
     } finally {
       setIsLoading(false);

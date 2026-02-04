@@ -2,7 +2,6 @@ import { redirect } from 'next/navigation';
 import { requireRole } from '@/lib/auth/server';
 import { getRegistrationsByUser } from '@/lib/data/api';
 import { PageHeader } from '@/shared/components/PageHeader';
-import { Badge } from '@/shared/ui/Badge';
 import Link from 'next/link';
 import { EmptyState } from '@/shared/ui/EmptyState';
 import { RegistrationList } from '@/features/visitor/components/RegistrationList';

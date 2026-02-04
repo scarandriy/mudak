@@ -6,9 +6,8 @@ import { PageHeader } from '@/shared/components/PageHeader';
 import { EventManagement } from '@/features/organizer/components/EventManagement';
 
 export default async function EventManagementPage({ params }: { params: Promise<{ id: string }> }) {
-  let user;
   try {
-    user = await requireRole('organizer');
+    await requireRole('organizer');
   } catch {
     redirect('/login');
   }

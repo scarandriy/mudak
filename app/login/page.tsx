@@ -41,7 +41,7 @@ export default function LoginPage() {
       } else {
         setError(result.error || 'Login failed');
       }
-    } catch (err) {
+    } catch (_err) {
       setError('An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
@@ -82,7 +82,7 @@ export default function LoginPage() {
         </Button>
 
         <div className="text-center text-sm text-[var(--color-muted-gray)]">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <a href="/register" className="font-medium underline">
             Register
           </a>

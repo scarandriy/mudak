@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { exhibitionRepository } from '@/lib/repositories/ExhibitionRepository';
 import { initializeDatabase } from '@/lib/db/init';
 import { getServerUser } from '@/lib/auth/server';
-import { query } from '@/lib/db/connection';
 
 export async function PATCH(
   request: NextRequest,
@@ -41,7 +40,7 @@ export async function PATCH(
       const rejectedExhibition = await exhibitionRepository.reject(id, feedback);
       return NextResponse.json({ success: true, exhibition: rejectedExhibition });
     }
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json(
       { success: false, error: 'An error occurred while processing verification' },
       { status: 500 }

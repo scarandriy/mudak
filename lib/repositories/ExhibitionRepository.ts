@@ -11,7 +11,7 @@ export class ExhibitionRepository {
       FROM exhibitions e
       JOIN users u ON e.organizer_id = u.id
     `;
-    const params: any[] = [];
+    const params: (string | number)[] = [];
 
     if (onlyVisible) {
       sql += ` WHERE e.is_visible = true AND e.verified = true`;
@@ -174,7 +174,7 @@ export class ExhibitionRepository {
       throw new Error('Organizer not found');
     }
 
-    const organizerName = organizerResult.rows[0].name;
+    const _organizerName = organizerResult.rows[0].name;
 
     const result = await query<{ id: string }>(
       `INSERT INTO exhibitions (title, description, start_date, end_date, location, is_visible, verified, organizer_id, capacity)

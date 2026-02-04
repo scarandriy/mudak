@@ -45,7 +45,7 @@ class AuthStore {
       }
       this.notify();
       return this.user;
-    } catch (error) {
+    } catch (_error) {
       this.user = null;
       this.notify();
       return null;
@@ -82,7 +82,7 @@ class AuthStore {
       } else {
         return { success: false, error: result.error || 'Login failed' };
       }
-    } catch (error) {
+    } catch (_error) {
       return { success: false, error: 'An error occurred during login' };
     }
   }
@@ -121,7 +121,7 @@ class AuthStore {
         method: 'POST',
         credentials: 'include',
       });
-    } catch (error) {
+    } catch (_error) {
       // Continue even if logout endpoint fails
     }
     this.user = null;

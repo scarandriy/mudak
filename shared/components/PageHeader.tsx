@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 interface PageHeaderProps {
   title: string;
-  subtitle?: string;
+  subtitle?: ReactNode;
   metadata?: ReactNode;
   actions?: ReactNode;
 }
@@ -14,7 +14,7 @@ export function PageHeader({ title, subtitle, metadata, actions }: PageHeaderPro
         <div>
           <h1 className="mb-2">{title}</h1>
           {subtitle && (
-            <p className="text-lg text-[var(--color-muted-gray)]">{subtitle}</p>
+            <div className="text-lg text-[var(--color-muted-gray)]">{subtitle}</div>
           )}
           {metadata && (
             <div className="mt-4 text-sm text-[var(--color-muted-gray)]">

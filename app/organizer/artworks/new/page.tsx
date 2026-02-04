@@ -5,9 +5,8 @@ import { PageHeader } from '@/shared/components/PageHeader';
 import { CreateArtworkForm } from '@/features/organizer/components/CreateArtworkForm';
 
 export default async function CreateOrganizerArtworkPage() {
-  let user;
   try {
-    user = await requireRole('organizer');
+    await requireRole('organizer');
   } catch {
     redirect('/login');
   }

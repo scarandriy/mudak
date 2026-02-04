@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { artworkRepository } from '@/lib/repositories/ArtworkRepository';
 import { initializeDatabase } from '@/lib/db/init';
 import { getServerUser } from '@/lib/auth/server';
+import type { Artwork } from '@/lib/types';
 
 export async function PATCH(
   request: NextRequest,
@@ -48,7 +49,7 @@ export async function PATCH(
     }
 
     // Only allow organizers to change the artist
-    const updateData: any = {
+    const updateData: Partial<Pick<Artwork, 'title' | 'description' | 'type' | 'imageUrl' | 'artistId'>> = {
       title,
       description,
       type,
@@ -62,7 +63,7 @@ export async function PATCH(
     const updatedArtwork = await artworkRepository.update(id, updateData);
     
     return NextResponse.json({ success: true, artwork: updatedArtwork });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json(
       { success: false, error: 'An error occurred while updating artwork' },
       { status: 500 }
@@ -106,7 +107,7 @@ export async function DELETE(
     const success = await artworkRepository.delete(id);
     
     return NextResponse.json({ success });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json(
       { success: false, error: 'An error occurred while deleting artwork' },
       { status: 500 }

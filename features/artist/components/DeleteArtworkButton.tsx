@@ -9,7 +9,7 @@ interface DeleteArtworkButtonProps {
   artworkTitle: string;
 }
 
-export function DeleteArtworkButton({ artworkId, artworkTitle }: DeleteArtworkButtonProps) {
+export function DeleteArtworkButton({ artworkId, artworkTitle: _artworkTitle }: DeleteArtworkButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const router = useRouter();
@@ -29,7 +29,7 @@ export function DeleteArtworkButton({ artworkId, artworkTitle }: DeleteArtworkBu
       } else {
         alert('Failed to delete artwork');
       }
-    } catch (error) {
+    } catch (_error) {
       alert('Failed to delete artwork');
     } finally {
       setIsLoading(false);

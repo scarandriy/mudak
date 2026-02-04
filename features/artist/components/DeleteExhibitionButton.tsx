@@ -9,7 +9,7 @@ interface DeleteExhibitionButtonProps {
   exhibitionTitle: string;
 }
 
-export function DeleteExhibitionButton({ exhibitionId, exhibitionTitle }: DeleteExhibitionButtonProps) {
+export function DeleteExhibitionButton({ exhibitionId, exhibitionTitle: _exhibitionTitle }: DeleteExhibitionButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const router = useRouter();
@@ -36,7 +36,7 @@ export function DeleteExhibitionButton({ exhibitionId, exhibitionTitle }: Delete
       } else {
         alert('Failed to delete exhibition');
       }
-    } catch (error) {
+    } catch (_error) {
       alert('Failed to delete exhibition');
     } finally {
       setIsLoading(false);

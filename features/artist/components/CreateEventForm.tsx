@@ -13,7 +13,7 @@ interface CreateEventFormProps {
   artworks: Artwork[];
 }
 
-export function CreateEventForm({ organizerId, organizerName, artworks }: CreateEventFormProps) {
+export function CreateEventForm({ organizerId, organizerName: _organizerName, artworks }: CreateEventFormProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -76,7 +76,7 @@ export function CreateEventForm({ organizerId, organizerName, artworks }: Create
       } else {
         setError(result.error || 'Failed to create event. Please try again.');
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to create event. Please try again.');
     } finally {
       setIsLoading(false);

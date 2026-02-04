@@ -14,12 +14,12 @@ interface ExhibitionRegistrationProps {
   registeredCount?: number;
 }
 
-export function ExhibitionRegistration({ exhibition, userId, userName, existingRegistration, registeredCount = 0 }: ExhibitionRegistrationProps) {
+export function ExhibitionRegistration({ exhibition, userId, userName: _userName, existingRegistration, registeredCount = 0 }: ExhibitionRegistrationProps) {
   const isFull = exhibition.capacity != null && registeredCount >= exhibition.capacity;
   const [isLoading, setIsLoading] = useState(false);
   const [isUnregistering, setIsUnregistering] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [registrationStatus, setRegistrationStatus] = useState<'confirmed' | null>(existingRegistration?.status || null);
+  const [_registrationStatus, setRegistrationStatus] = useState<'confirmed' | null>(existingRegistration?.status || null);
   const [currentRegistration, setCurrentRegistration] = useState<Registration | null>(existingRegistration || null);
   const router = useRouter();
 
@@ -54,7 +54,7 @@ export function ExhibitionRegistration({ exhibition, userId, userName, existingR
         setStatus('error');
         alert(result.error || 'Failed to register. Please try again.');
       }
-    } catch (error) {
+    } catch (_error) {
       setStatus('error');
       alert('Failed to register. Please try again.');
     } finally {
@@ -87,7 +87,7 @@ export function ExhibitionRegistration({ exhibition, userId, userName, existingR
       } else {
         alert('Failed to cancel registration. Please try again.');
       }
-    } catch (error) {
+    } catch (_error) {
       alert('Failed to cancel registration. Please try again.');
     } finally {
       setIsUnregistering(false);

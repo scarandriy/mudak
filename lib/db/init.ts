@@ -62,7 +62,7 @@ async function initializeSchema(): Promise<void> {
         schemaPath = path;
         break;
       }
-    } catch (e) {
+    } catch {
       continue;
     }
   }
@@ -109,9 +109,10 @@ async function initializeSchema(): Promise<void> {
     try {
       await query(withoutComments);
       console.log(`Executed statement ${i + 1}/${statements.length}`);
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Ignore "already exists" errors for IF NOT EXISTS statements
-      if (error?.message?.includes('already exists') || error?.code === '42P07') {
+      const err = error as { message?: string; code?: string };
+      if (err?.message?.includes('already exists') || err?.code === '42P07') {
         console.log(`Statement ${i + 1} skipped (already exists)`);
         continue;
       }
@@ -134,7 +135,7 @@ async function initializeSchema(): Promise<void> {
      ORDER BY table_name`
   );
   
-  const createdTables = verifyResult.rows.map((r: any) => r.table_name);
+  const createdTables = verifyResult.rows.map((r: { table_name: string }) => r.table_name);
   console.log(`Verified tables created: ${createdTables.join(', ')}`);
   
   if (createdTables.length < 4) {
@@ -164,9 +165,10 @@ async function runMigrations(): Promise<void> {
       END $$;
     `);
     console.log('Migration: verified and verification_feedback columns check completed');
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Ignore if column already exists
-    if (!error?.message?.includes('already exists') && error?.code !== '42701') {
+    const err = error as { message?: string; code?: string };
+    if (!err?.message?.includes('already exists') && err?.code !== '42701') {
       console.error('Migration error (non-critical):', error);
     }
   }
@@ -174,7 +176,7 @@ async function runMigrations(): Promise<void> {
 
 async function checkSchemaExists(): Promise<boolean> {
   try {
-    const result = await query(
+    const result = await query<{ exists: boolean }>(
       `SELECT EXISTS (
         SELECT FROM information_schema.tables 
         WHERE table_schema = 'public' 
@@ -182,7 +184,7 @@ async function checkSchemaExists(): Promise<boolean> {
       )`
     );
     return result.rows[0].exists;
-  } catch (error) {
+  } catch (_error) {
     return false;
   }
 }
@@ -222,7 +224,7 @@ export async function initializeDatabase(): Promise<void> {
         const pool = getPool();
         try {
           await pool.query('SELECT 1');
-        } catch (error) {
+        } catch (_error) {
           console.log('Reconnecting to database...');
           await closePool();
           const newPool = getPool();

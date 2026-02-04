@@ -9,9 +9,8 @@ import { EmptyState } from '@/shared/ui/EmptyState';
 import { DeleteArtworkButton } from '@/features/artist/components/DeleteArtworkButton';
 
 export default async function OrganizerArtworksPage() {
-  let user;
   try {
-    user = await requireRole('organizer');
+    await requireRole('organizer');
   } catch {
     redirect('/login');
   }

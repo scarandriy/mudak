@@ -4,7 +4,6 @@ import { getExhibitionsByOrganizer } from '@/lib/data/api';
 import { PageHeader } from '@/shared/components/PageHeader';
 import { Button } from '@/shared/ui/Button';
 import Link from 'next/link';
-import { ExhibitionCard } from '@/features/exhibitions/components/ExhibitionCard';
 import { Badge } from '@/shared/ui/Badge';
 import { EmptyState } from '@/shared/ui/EmptyState';
 import { DeleteExhibitionButton } from '@/features/artist/components/DeleteExhibitionButton';

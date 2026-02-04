@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import { authStore, AuthState } from './auth';
-import { User } from '@/lib/types';
+import { User, UserRole } from '@/lib/types';
 
 interface AuthContextType extends AuthState {
   login: (email: string, password: string) => Promise<{ success: boolean; user?: User; error?: string }>;
@@ -44,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const register = async (email: string, password: string, name: string, role: string) => {
-    return authStore.register(email, password, name, role as any);
+    return authStore.register(email, password, name, role as UserRole);
   };
 
   const logout = () => {
@@ -56,11 +56,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const hasRole = (role: string) => {
-    return authStore.hasRole(role as any);
+    return authStore.hasRole(role as UserRole);
   };
 
   const hasAnyRole = (roles: string[]) => {
-    return authStore.hasAnyRole(roles as any[]);
+    return authStore.hasAnyRole(roles as UserRole[]);
   };
 
   const contextValue = {

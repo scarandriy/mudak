@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
     });
     
     return response;
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json(
       { success: false, error: 'An error occurred during login' },
       { status: 500 }

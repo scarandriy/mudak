@@ -12,7 +12,7 @@ interface UploadArtworkFormProps {
   artistName: string;
 }
 
-export function UploadArtworkForm({ artistId, artistName }: UploadArtworkFormProps) {
+export function UploadArtworkForm({ artistId, artistName: _artistName }: UploadArtworkFormProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [type, setType] = useState('');
@@ -78,7 +78,7 @@ export function UploadArtworkForm({ artistId, artistName }: UploadArtworkFormPro
       } else {
         setError(result.error || 'Failed to create artwork. Please try again.');
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to upload artwork. Please try again.');
     } finally {
       setIsLoading(false);

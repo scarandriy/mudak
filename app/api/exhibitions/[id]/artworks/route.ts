@@ -50,7 +50,7 @@ export async function POST(
     const success = await exhibitionRepository.assignArtwork(id, artworkId);
     
     return NextResponse.json({ success });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json(
       { success: false, error: 'An error occurred while assigning artwork' },
       { status: 500 }
@@ -104,7 +104,7 @@ export async function DELETE(
     const success = await exhibitionRepository.removeArtwork(id, artworkId);
     
     return NextResponse.json({ success });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json(
       { success: false, error: 'An error occurred while removing artwork' },
       { status: 500 }

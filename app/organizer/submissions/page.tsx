@@ -6,9 +6,8 @@ import { ExhibitionVerificationList } from '@/features/organizer/components/Exhi
 import { EmptyState } from '@/shared/ui/EmptyState';
 
 export default async function SubmissionsPage() {
-  let user;
   try {
-    user = await requireRole('organizer');
+    await requireRole('organizer');
   } catch {
     redirect('/login');
   }

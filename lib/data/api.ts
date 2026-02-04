@@ -106,7 +106,7 @@ export async function getRegistrationByUserAndExhibition(userId: string, exhibit
   return registrationRepository.findByUserAndExhibition(userId, exhibitionId);
 }
 
-export async function createRegistration(exhibitionId: string, userId: string, userName: string, exhibitionTitle: string): Promise<Registration> {
+export async function createRegistration(exhibitionId: string, userId: string, _userName: string, _exhibitionTitle: string): Promise<Registration> {
   await ensureDbInitialized();
   const exhibition = await getExhibitionById(exhibitionId);
   const existingRegistrations = await getRegistrationsByExhibition(exhibitionId);

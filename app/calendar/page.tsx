@@ -41,8 +41,6 @@ export default async function CalendarPage() {
                 const startDate = new Date(exhibition.startDate);
                 const endDate = new Date(exhibition.endDate);
                 const duration = getDaysDifference(startDate, endDate);
-                const isOngoing = startDate <= new Date() && endDate >= new Date();
-
                 return (
                   <a
                     key={exhibition.id}

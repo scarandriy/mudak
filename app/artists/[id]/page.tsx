@@ -5,7 +5,6 @@ import { ArtworkCard } from '@/features/artworks/components/ArtworkCard';
 import { ExhibitionCard } from '@/features/exhibitions/components/ExhibitionCard';
 import { EmptyState } from '@/shared/ui/EmptyState';
 import { Divider } from '@/shared/ui/Divider';
-import Link from 'next/link';
 
 interface ArtistProfilePageProps {
   params: Promise<{ id: string }>;

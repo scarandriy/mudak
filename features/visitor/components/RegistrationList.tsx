@@ -33,7 +33,7 @@ export function RegistrationList({ registrations }: RegistrationListProps) {
       } else {
         alert('Failed to cancel registration');
       }
-    } catch (error) {
+    } catch (_error) {
       alert('Failed to cancel registration');
     } finally {
       setCancellingId(null);

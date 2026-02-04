@@ -8,9 +8,8 @@ import { Button } from '@/shared/ui/Button';
 import Link from 'next/link';
 
 export default async function OrganizerEventsPage() {
-  let user;
   try {
-    user = await requireRole('organizer');
+    await requireRole('organizer');
   } catch {
     redirect('/login');
   }

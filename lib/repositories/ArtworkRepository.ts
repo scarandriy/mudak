@@ -11,7 +11,7 @@ export class ArtworkRepository {
       JOIN users u ON a.artist_id = u.id
       WHERE 1=1
     `;
-    const params: any[] = [];
+    const params: (string | number)[] = [];
     let paramIndex = 1;
 
     if (filters?.artistId) {
