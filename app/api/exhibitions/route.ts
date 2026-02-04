@@ -2,15 +2,24 @@ import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import { exhibitionRepository } from '@/lib/repositories/ExhibitionRepository';
 import { initializeDatabase } from '@/lib/db/init';
+import { getServerUser } from '@/lib/auth/server';
 
 export async function POST(request: NextRequest) {
   try {
     await initializeDatabase();
+
+    const user = await getServerUser();
+    if (!user || user.role !== 'organizer') {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
     
     const body = await request.json();
-    const { organizerId, title, description, startDate, endDate, location, isVisible, capacity } = body;
+    const { title, description, startDate, endDate, location, isVisible, capacity } = body;
 
-    if (!organizerId || !title || !description || !startDate || !endDate || !location) {
+    if (!title || !description || !startDate || !endDate || !location) {
       return NextResponse.json(
         { success: false, error: 'All required fields must be provided' },
         { status: 400 }
@@ -18,7 +27,7 @@ export async function POST(request: NextRequest) {
     }
 
     const exhibition = await exhibitionRepository.create(
-      organizerId,
+      user.id,
       title,
       description,
       startDate,

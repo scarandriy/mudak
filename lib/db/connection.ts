@@ -1,5 +1,5 @@
 import 'server-only';
-import { Pool, QueryResult } from 'pg';
+import { Pool, QueryResult, QueryResultRow } from 'pg';
 
 let pool: Pool | null = null;
 let isInitialized = false;
@@ -43,7 +43,7 @@ export function getPool(): Pool {
   return pool;
 }
 
-export async function query<T = Record<string, unknown>>(
+export async function query<T extends QueryResultRow = QueryResultRow>(
   text: string,
   params?: unknown[]
 ): Promise<QueryResult<T>> {

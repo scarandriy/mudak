@@ -2,6 +2,7 @@ import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import { submissionRepository } from '@/lib/repositories/SubmissionRepository';
 import { initializeDatabase } from '@/lib/db/init';
+import { getServerUser } from '@/lib/auth/server';
 
 export async function PATCH(
   request: NextRequest,
@@ -9,6 +10,14 @@ export async function PATCH(
 ) {
   try {
     await initializeDatabase();
+
+    const user = await getServerUser();
+    if (!user || user.role !== 'organizer') {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
     
     const { id } = await params;
     const body = await request.json();

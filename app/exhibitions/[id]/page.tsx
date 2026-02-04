@@ -7,6 +7,8 @@ import { Divider } from '@/shared/ui/Divider';
 import { ExhibitionRegistration } from '@/features/exhibitions/components/ExhibitionRegistration';
 import { getServerUser } from '@/lib/auth/server';
 
+export const dynamic = 'force-dynamic';
+
 interface ExhibitionDetailPageProps {
   params: Promise<{ id: string }>;
 }

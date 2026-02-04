@@ -3,17 +3,26 @@ import { NextRequest, NextResponse } from 'next/server';
 import { registrationRepository } from '@/lib/repositories/RegistrationRepository';
 import { exhibitionRepository } from '@/lib/repositories/ExhibitionRepository';
 import { initializeDatabase } from '@/lib/db/init';
+import { getServerUser } from '@/lib/auth/server';
 
 export async function POST(request: NextRequest) {
   try {
     await initializeDatabase();
+
+    const user = await getServerUser();
+    if (!user) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
     
     const body = await request.json();
-    const { exhibitionId, userId } = body;
+    const { exhibitionId } = body;
 
-    if (!exhibitionId || !userId) {
+    if (!exhibitionId) {
       return NextResponse.json(
-        { success: false, error: 'Exhibition ID and User ID are required' },
+        { success: false, error: 'Exhibition ID is required' },
         { status: 400 }
       );
     }
@@ -26,8 +35,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if user is already registered
-    const existingRegistration = await registrationRepository.findByUserAndExhibition(userId, exhibitionId);
+    // Check if user is already registered (use server user id only)
+    const existingRegistration = await registrationRepository.findByUserAndExhibition(user.id, exhibitionId);
     if (existingRegistration) {
       return NextResponse.json(
         { success: false, error: 'You are already registered for this exhibition' },
@@ -45,7 +54,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const registration = await registrationRepository.create(exhibitionId, userId, 'confirmed');
+    const registration = await registrationRepository.create(exhibitionId, user.id, 'confirmed');
     
     return NextResponse.json({ success: true, registration });
   } catch (error) {

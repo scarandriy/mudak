@@ -28,6 +28,7 @@ export class ExhibitionRepository {
       location: string;
       is_visible: boolean;
       verified: boolean;
+      verification_feedback: string | null;
       organizer_id: string;
       organizer_name: string;
       capacity: number | null;

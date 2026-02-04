@@ -38,7 +38,7 @@ async function createDatabase(dbName: string): Promise<void> {
 }
 
 async function initializeSchema(): Promise<void> {
-  let schemaPath: string;
+  let schemaPath: string | undefined;
   
   // Try multiple possible paths for Next.js
   const possiblePaths = [
@@ -128,14 +128,14 @@ async function initializeSchema(): Promise<void> {
   await runMigrations();
   
   // Verify tables were created
-  const verifyResult = await query(
+  const verifyResult = await query<{ table_name: string }>(
     `SELECT table_name FROM information_schema.tables 
      WHERE table_schema = 'public' 
      AND table_name IN ('users', 'artworks', 'exhibitions', 'registrations')
      ORDER BY table_name`
   );
   
-  const createdTables = verifyResult.rows.map((r: { table_name: string }) => r.table_name);
+  const createdTables = verifyResult.rows.map((r) => r.table_name);
   console.log(`Verified tables created: ${createdTables.join(', ')}`);
   
   if (createdTables.length < 4) {

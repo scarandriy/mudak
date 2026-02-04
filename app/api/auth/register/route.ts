@@ -32,10 +32,10 @@ export async function POST(request: NextRequest) {
 
     const response = NextResponse.json({ success: true, user });
     
-    // Session-only cookie (no maxAge = browser session only)
+    // Session-only cookie (httpOnly prevents XSS from reading session)
     response.cookies.set('user_id', user.id, {
       path: '/',
-      httpOnly: false,
+      httpOnly: true,
       sameSite: 'lax',
       secure: process.env.NODE_ENV === 'production',
       // No maxAge - cookie expires when browser closes
