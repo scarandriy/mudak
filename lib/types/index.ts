@@ -86,3 +86,18 @@ export interface Submission {
   submittedAt: string;
 }
 
+export interface TeamMember {
+  id: string;
+  name: string;
+  slug: string;
+  role?: string;
+  bio?: string;
+  contributions?: string;
+  github?: string;
+  linkedin?: string;
+  email?: string;
+  imageUrl?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+

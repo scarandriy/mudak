@@ -199,6 +199,32 @@ async function runMigrations(): Promise<void> {
       console.error('Migration error (non-critical):', error);
     }
   }
+
+  // Migrate: Create team_members table
+  try {
+    await query(`
+      CREATE TABLE IF NOT EXISTS team_members (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        name VARCHAR(255) NOT NULL,
+        slug VARCHAR(255) UNIQUE NOT NULL,
+        role VARCHAR(255),
+        bio TEXT,
+        contributions TEXT,
+        github VARCHAR(255),
+        linkedin VARCHAR(255),
+        email VARCHAR(255),
+        image_url TEXT,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+    console.log('Migration: team_members table check completed');
+  } catch (error: unknown) {
+    const err = error as { message?: string; code?: string };
+    if (!err?.message?.includes('already exists') && err?.code !== '42P07') {
+      console.error('Migration error (non-critical):', error);
+    }
+  }
 }
 
 async function checkSchemaExists(): Promise<boolean> {

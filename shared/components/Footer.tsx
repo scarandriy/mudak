@@ -2,12 +2,12 @@ import Link from 'next/link';
 
 export function Footer() {
   const teamMembers = [
-    'Andrii Shramenko',
-    'Dmytro Shapiro',
-    'Vitalii Krivkov',
-    'Yaroslav Zabolotskyi',
-    'Yaroslav Muzalevskyi',
-    'Giorgos Kotsias',
+    { name: 'Andrii Shramenko', slug: 'andrii-shramenko' },
+    { name: 'Dmytro Shapiro', slug: 'dmytro-shapiro' },
+    { name: 'Vitalii Krivkov', slug: 'vitalii-krivkov' },
+    { name: 'Yaroslav Zabolotskyi', slug: 'yaroslav-zabolotskyi' },
+    { name: 'Yaroslav Muzalevskyi', slug: 'yaroslav-muzalevskyi' },
+    { name: 'Giorgos Kotsias', slug: 'giorgos-kotsias' },
   ];
 
   const navLinks = [
@@ -57,12 +57,19 @@ export function Footer() {
           {/* Team */}
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">
-              Team
+              <Link href="/team" className="hover:underline">
+                Team
+              </Link>
             </h4>
             <ul className="space-y-1">
               {teamMembers.map((member) => (
-                <li key={member} className="text-sm text-[var(--color-muted-gray)]">
-                  {member}
+                <li key={member.slug}>
+                  <Link
+                    href={`/team/${member.slug}`}
+                    className="text-sm text-[var(--color-muted-gray)] hover:text-black transition-colors"
+                  >
+                    {member.name}
+                  </Link>
                 </li>
               ))}
             </ul>

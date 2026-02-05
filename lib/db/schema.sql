@@ -92,6 +92,22 @@ CREATE TABLE IF NOT EXISTS submissions (
   submitted_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Team members table
+CREATE TABLE IF NOT EXISTS team_members (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name VARCHAR(255) NOT NULL,
+  slug VARCHAR(255) UNIQUE NOT NULL,
+  role VARCHAR(255),
+  bio TEXT,
+  contributions TEXT,
+  github VARCHAR(255),
+  linkedin VARCHAR(255),
+  email VARCHAR(255),
+  image_url TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Indexes for foreign keys
 CREATE INDEX IF NOT EXISTS idx_artist_social_links_user_id ON artist_social_links(user_id);
 CREATE INDEX IF NOT EXISTS idx_artworks_artist_id ON artworks(artist_id);
