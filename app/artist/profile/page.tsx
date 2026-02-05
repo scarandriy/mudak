@@ -12,7 +12,7 @@ export default async function ArtistProfilePage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-8 py-12">
+    <div className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
       <PageHeader title="Edit Profile" subtitle="Update your artist profile" />
 
       <ArtistProfileForm user={user} />

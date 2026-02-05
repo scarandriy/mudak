@@ -49,7 +49,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto px-8 py-12">
+    <div className="max-w-md mx-auto px-4 sm:px-8 py-8 sm:py-12">
       <PageHeader title="Login" subtitle="Sign in to your account" />
 
       <form onSubmit={handleSubmit} className="space-y-6">

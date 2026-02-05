@@ -12,7 +12,7 @@ export default async function UploadArtworkPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-8 py-12">
+    <div className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
       <PageHeader title="Upload Artwork" subtitle="Add a new artwork to your collection" />
 
       <UploadArtworkForm artistId={user.id} artistName={user.name} />

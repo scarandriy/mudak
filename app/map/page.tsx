@@ -5,7 +5,7 @@ export default async function MapPage() {
   const exhibitions = await getExhibitions(true);
 
   return (
-    <div className="max-w-7xl mx-auto px-8 py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
       <PageHeader title="Exhibition Map" subtitle="Locations and venues" />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

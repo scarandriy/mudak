@@ -10,7 +10,7 @@ export default async function AdminPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-8 py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
       <PageHeader title="Admin Dashboard" subtitle="System administration" />
 
       <div className="space-y-6">

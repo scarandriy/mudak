@@ -16,7 +16,7 @@ export default async function RegistrationsPage() {
   const registrations = await getRegistrationsByUser(user.id);
 
   return (
-    <div className="max-w-7xl mx-auto px-8 py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
       <PageHeader title="My Registrations" subtitle="View and manage your event registrations" />
 
       {registrations.length === 0 ? (

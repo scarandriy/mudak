@@ -15,7 +15,7 @@ export default async function CreateEventPage() {
   const artworks = await getArtworksByArtist(user.id);
 
   return (
-    <div className="max-w-3xl mx-auto px-8 py-12">
+    <div className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
       <PageHeader title="Create Event" subtitle="Create a new exhibition or event" />
 
       <CreateEventForm organizerId={user.id} organizerName={user.name} artworks={artworks} />

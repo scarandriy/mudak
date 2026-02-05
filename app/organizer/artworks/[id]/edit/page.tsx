@@ -22,7 +22,7 @@ export default async function EditOrganizerArtworkPage({ params }: { params: Pro
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-8 py-12">
+    <div className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
       <PageHeader title="Edit Artwork" subtitle={artwork.title} />
       <EditArtworkForm artwork={artwork} artists={artists} />
     </div>

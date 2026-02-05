@@ -51,7 +51,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto px-8 py-12">
+    <div className="max-w-md mx-auto px-4 sm:px-8 py-8 sm:py-12">
       <PageHeader title="Register" subtitle="Create a new account" />
 
       <form onSubmit={handleSubmit} className="space-y-6">

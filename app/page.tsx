@@ -30,7 +30,7 @@ export default async function Home() {
     .slice(0, 6);
 
   return (
-    <div className="max-w-7xl mx-auto px-8 py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
       <PageHeader
         title="Contemporary Art & Exhibitions"
         subtitle="Discover artworks, exhibitions, and cultural events"

@@ -14,7 +14,7 @@ export default async function CreateOrganizerArtworkPage() {
   const artists = await getUsersByRole('artist');
 
   return (
-    <div className="max-w-3xl mx-auto px-8 py-12">
+    <div className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
       <PageHeader title="Create Artwork" subtitle="Add a new artwork" />
       <CreateArtworkForm artists={artists} />
     </div>

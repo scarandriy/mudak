@@ -45,7 +45,7 @@ export default async function ExhibitionDetailPage({ params }: ExhibitionDetailP
   const isOngoing = startDate <= new Date() && endDate >= new Date();
 
   return (
-    <div className="max-w-7xl mx-auto px-8 py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
       <PageHeader
         title={exhibition.title}
         metadata={
