@@ -5,9 +5,9 @@ export function Footer() {
     'Andrii Shramenko',
     'Dmytro Shapiro',
     'Vitalii Krivkov',
-    'Yaroslav Zabolotniy',
-    'Yaroslaw Maloy',
-    'Jorgo Koca',
+    'Yaroslav Zabolotskiy',
+    'Yaroslaw Muzalevskiy',
+    'Giorgos Kotsias',
   ];
 
   const navLinks = [
