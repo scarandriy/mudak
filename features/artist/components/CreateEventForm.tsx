@@ -6,6 +6,7 @@ import { Artwork } from '@/lib/types';
 import { Input } from '@/shared/ui/Input';
 import { Textarea } from '@/shared/ui/Textarea';
 import { Button } from '@/shared/ui/Button';
+import { LocationAutocomplete } from '@/shared/components/LocationAutocomplete';
 
 interface CreateEventFormProps {
   organizerId: string;
@@ -19,12 +20,22 @@ export function CreateEventForm({ organizerId, organizerName: _organizerName, ar
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [location, setLocation] = useState('');
+  const [latitude, setLatitude] = useState<number | undefined>();
+  const [longitude, setLongitude] = useState<number | undefined>();
   const [capacity, setCapacity] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [selectedArtworks, setSelectedArtworks] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
+
+  const handleLocationChange = (value: string, coords?: { latitude: number; longitude: number }) => {
+    setLocation(value);
+    if (coords) {
+      setLatitude(coords.latitude);
+      setLongitude(coords.longitude);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,6 +60,8 @@ export function CreateEventForm({ organizerId, organizerName: _organizerName, ar
           startDate,
           endDate,
           location,
+          latitude,
+          longitude,
           isVisible,
           capacity: capacity ? parseInt(capacity, 10) : undefined,
         }),
@@ -123,10 +136,11 @@ export function CreateEventForm({ organizerId, organizerName: _organizerName, ar
         />
       </div>
 
-      <Input
+      <LocationAutocomplete
         label="Location"
         value={location}
-        onChange={(e) => setLocation(e.target.value)}
+        onChange={handleLocationChange}
+        placeholder="Start typing an address..."
         required
       />
 

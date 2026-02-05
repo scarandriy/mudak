@@ -45,6 +45,8 @@ export interface Exhibition {
   startDate: string;
   endDate: string;
   location: string;
+  latitude?: number;
+  longitude?: number;
   isVisible: boolean;
   verified?: boolean;
   verificationFeedback?: string;

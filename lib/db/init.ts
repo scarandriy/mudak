@@ -172,6 +172,33 @@ async function runMigrations(): Promise<void> {
       console.error('Migration error (non-critical):', error);
     }
   }
+
+  // Migrate: Add latitude and longitude columns to exhibitions
+  try {
+    await query(`
+      DO $$ 
+      BEGIN
+        IF NOT EXISTS (
+          SELECT 1 FROM information_schema.columns 
+          WHERE table_name = 'exhibitions' AND column_name = 'latitude'
+        ) THEN
+          ALTER TABLE exhibitions ADD COLUMN latitude DECIMAL(10, 8);
+        END IF;
+        IF NOT EXISTS (
+          SELECT 1 FROM information_schema.columns 
+          WHERE table_name = 'exhibitions' AND column_name = 'longitude'
+        ) THEN
+          ALTER TABLE exhibitions ADD COLUMN longitude DECIMAL(11, 8);
+        END IF;
+      END $$;
+    `);
+    console.log('Migration: latitude and longitude columns check completed');
+  } catch (error: unknown) {
+    const err = error as { message?: string; code?: string };
+    if (!err?.message?.includes('already exists') && err?.code !== '42701') {
+      console.error('Migration error (non-critical):', error);
+    }
+  }
 }
 
 async function checkSchemaExists(): Promise<boolean> {

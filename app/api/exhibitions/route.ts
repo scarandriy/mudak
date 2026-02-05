@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     await initializeDatabase();
 
     const user = await getServerUser();
-    if (!user || user.role !== 'organizer') {
+    if (!user || (user.role !== 'organizer' && user.role !== 'artist')) {
       return NextResponse.json(
         { success: false, error: 'Unauthorized' },
         { status: 401 }
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     }
     
     const body = await request.json();
-    const { title, description, startDate, endDate, location, isVisible, capacity } = body;
+    const { title, description, startDate, endDate, location, latitude, longitude, isVisible, capacity } = body;
 
     if (!title || !description || !startDate || !endDate || !location) {
       return NextResponse.json(
@@ -34,7 +34,9 @@ export async function POST(request: NextRequest) {
       endDate,
       location,
       isVisible ?? false,
-      capacity
+      capacity,
+      latitude,
+      longitude
     );
     
     return NextResponse.json({ success: true, exhibition });

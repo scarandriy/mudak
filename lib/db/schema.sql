@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS exhibitions (
   start_date DATE NOT NULL,
   end_date DATE NOT NULL,
   location VARCHAR(255) NOT NULL,
+  latitude DECIMAL(10, 8),
+  longitude DECIMAL(11, 8),
   is_visible BOOLEAN DEFAULT false,
   verified BOOLEAN DEFAULT false,
   verification_feedback TEXT,

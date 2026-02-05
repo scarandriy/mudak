@@ -38,7 +38,7 @@ export async function PATCH(
     }
 
     const body = await request.json();
-    const { title, description, startDate, endDate, location, isVisible, capacity } = body;
+    const { title, description, startDate, endDate, location, latitude, longitude, isVisible, capacity } = body;
 
     const updatedExhibition = await exhibitionRepository.update(id, {
       title,
@@ -46,6 +46,8 @@ export async function PATCH(
       startDate,
       endDate,
       location,
+      latitude,
+      longitude,
       isVisible,
       capacity,
     });

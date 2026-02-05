@@ -6,6 +6,7 @@ export class ExhibitionRepository {
   async findAll(onlyVisible: boolean = false): Promise<Exhibition[]> {
     let sql = `
       SELECT e.id, e.title, e.description, e.start_date, e.end_date, e.location,
+             e.latitude, e.longitude,
              e.is_visible, e.verified, e.verification_feedback, e.organizer_id, u.name as organizer_name,
              e.capacity, e.created_at, e.updated_at
       FROM exhibitions e
@@ -26,6 +27,8 @@ export class ExhibitionRepository {
       start_date: Date;
       end_date: Date;
       location: string;
+      latitude: string | null;
+      longitude: string | null;
       is_visible: boolean;
       verified: boolean;
       verification_feedback: string | null;
@@ -54,6 +57,8 @@ export class ExhibitionRepository {
       start_date: Date;
       end_date: Date;
       location: string;
+      latitude: string | null;
+      longitude: string | null;
       is_visible: boolean;
       verified: boolean;
       verification_feedback: string | null;
@@ -64,6 +69,7 @@ export class ExhibitionRepository {
       updated_at: Date;
     }>(
       `SELECT e.id, e.title, e.description, e.start_date, e.end_date, e.location,
+              e.latitude, e.longitude,
               e.is_visible, e.verified, e.verification_feedback, e.organizer_id, u.name as organizer_name,
               e.capacity, e.created_at, e.updated_at
        FROM exhibitions e
@@ -88,6 +94,8 @@ export class ExhibitionRepository {
       start_date: Date;
       end_date: Date;
       location: string;
+      latitude: string | null;
+      longitude: string | null;
       is_visible: boolean;
       verified: boolean;
       verification_feedback: string | null;
@@ -98,6 +106,7 @@ export class ExhibitionRepository {
       updated_at: Date;
     }>(
       `SELECT e.id, e.title, e.description, e.start_date, e.end_date, e.location,
+              e.latitude, e.longitude,
               e.is_visible, e.verified, e.verification_feedback, e.organizer_id, u.name as organizer_name,
               e.capacity, e.created_at, e.updated_at
        FROM exhibitions e
@@ -125,6 +134,8 @@ export class ExhibitionRepository {
       start_date: Date;
       end_date: Date;
       location: string;
+      latitude: string | null;
+      longitude: string | null;
       is_visible: boolean;
       verified: boolean;
       verification_feedback: string | null;
@@ -135,6 +146,7 @@ export class ExhibitionRepository {
       updated_at: Date;
     }>(
       `SELECT DISTINCT e.id, e.title, e.description, e.start_date, e.end_date, e.location,
+              e.latitude, e.longitude,
               e.is_visible, e.verified, e.verification_feedback, e.organizer_id, u.name as organizer_name,
               e.capacity, e.created_at, e.updated_at
        FROM exhibitions e
@@ -164,7 +176,9 @@ export class ExhibitionRepository {
     endDate: string,
     location: string,
     isVisible: boolean = false,
-    capacity?: number
+    capacity?: number,
+    latitude?: number,
+    longitude?: number
   ): Promise<Exhibition> {
     const organizerResult = await query<{ name: string }>(
       `SELECT name FROM users WHERE id = $1`,
@@ -178,10 +192,10 @@ export class ExhibitionRepository {
     const _organizerName = organizerResult.rows[0].name;
 
     const result = await query<{ id: string }>(
-      `INSERT INTO exhibitions (title, description, start_date, end_date, location, is_visible, verified, organizer_id, capacity)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      `INSERT INTO exhibitions (title, description, start_date, end_date, location, latitude, longitude, is_visible, verified, organizer_id, capacity)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
        RETURNING id`,
-      [title, description, startDate, endDate, location, isVisible, false, organizerId, capacity || null]
+      [title, description, startDate, endDate, location, latitude || null, longitude || null, isVisible, false, organizerId, capacity || null]
     );
 
     const exhibitionId = result.rows[0].id;
@@ -194,7 +208,7 @@ export class ExhibitionRepository {
 
   async update(
     id: string,
-    updates: Partial<Pick<Exhibition, 'title' | 'description' | 'startDate' | 'endDate' | 'location' | 'capacity' | 'isVisible'>>
+    updates: Partial<Pick<Exhibition, 'title' | 'description' | 'startDate' | 'endDate' | 'location' | 'latitude' | 'longitude' | 'capacity' | 'isVisible'>>
   ): Promise<Exhibition> {
     await query(
       `UPDATE exhibitions
@@ -203,16 +217,20 @@ export class ExhibitionRepository {
            start_date = COALESCE($3, start_date),
            end_date = COALESCE($4, end_date),
            location = COALESCE($5, location),
-           capacity = COALESCE($6, capacity),
-           is_visible = COALESCE($7, is_visible),
+           latitude = COALESCE($6, latitude),
+           longitude = COALESCE($7, longitude),
+           capacity = COALESCE($8, capacity),
+           is_visible = COALESCE($9, is_visible),
            updated_at = CURRENT_TIMESTAMP
-       WHERE id = $8`,
+       WHERE id = $10`,
       [
         updates.title || null,
         updates.description || null,
         updates.startDate || null,
         updates.endDate || null,
         updates.location || null,
+        updates.latitude !== undefined ? updates.latitude : null,
+        updates.longitude !== undefined ? updates.longitude : null,
         updates.capacity || null,
         updates.isVisible !== undefined ? updates.isVisible : null,
         id,
@@ -299,6 +317,8 @@ export class ExhibitionRepository {
       start_date: Date;
       end_date: Date;
       location: string;
+      latitude: string | null;
+      longitude: string | null;
       is_visible: boolean;
       verified: boolean;
       verification_feedback: string | null;
@@ -317,6 +337,8 @@ export class ExhibitionRepository {
       startDate: row.start_date.toISOString().split('T')[0],
       endDate: row.end_date.toISOString().split('T')[0],
       location: row.location,
+      latitude: row.latitude ? parseFloat(row.latitude) : undefined,
+      longitude: row.longitude ? parseFloat(row.longitude) : undefined,
       isVisible: row.is_visible,
       verified: row.verified,
       verificationFeedback: row.verification_feedback || undefined,

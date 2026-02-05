@@ -6,6 +6,7 @@ import { Exhibition, Artwork } from '@/lib/types';
 import { Input } from '@/shared/ui/Input';
 import { Textarea } from '@/shared/ui/Textarea';
 import { Button } from '@/shared/ui/Button';
+import { LocationAutocomplete } from '@/shared/components/LocationAutocomplete';
 
 interface EditEventFormProps {
   exhibition: Exhibition;
@@ -18,6 +19,8 @@ export function EditEventForm({ exhibition, artworks }: EditEventFormProps) {
   const [startDate, setStartDate] = useState(exhibition.startDate);
   const [endDate, setEndDate] = useState(exhibition.endDate);
   const [location, setLocation] = useState(exhibition.location);
+  const [latitude, setLatitude] = useState<number | undefined>(exhibition.latitude);
+  const [longitude, setLongitude] = useState<number | undefined>(exhibition.longitude);
   const [capacity, setCapacity] = useState(exhibition.capacity?.toString() || '');
   const [isVisible, setIsVisible] = useState(exhibition.isVisible);
   const [selectedArtworks, setSelectedArtworks] = useState<string[]>(exhibition.artworkIds || []);
@@ -28,6 +31,14 @@ export function EditEventForm({ exhibition, artworks }: EditEventFormProps) {
   useEffect(() => {
     setSelectedArtworks(exhibition.artworkIds || []);
   }, [exhibition.artworkIds]);
+
+  const handleLocationChange = (value: string, coords?: { latitude: number; longitude: number }) => {
+    setLocation(value);
+    if (coords) {
+      setLatitude(coords.latitude);
+      setLongitude(coords.longitude);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,6 +62,8 @@ export function EditEventForm({ exhibition, artworks }: EditEventFormProps) {
           startDate,
           endDate,
           location,
+          latitude,
+          longitude,
           isVisible,
           capacity: capacity ? parseInt(capacity, 10) : undefined,
         }),
@@ -144,10 +157,11 @@ export function EditEventForm({ exhibition, artworks }: EditEventFormProps) {
         />
       </div>
 
-      <Input
+      <LocationAutocomplete
         label="Location"
         value={location}
-        onChange={(e) => setLocation(e.target.value)}
+        onChange={handleLocationChange}
+        placeholder="Start typing an address..."
         required
       />
 

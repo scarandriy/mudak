@@ -1,8 +1,20 @@
 import { getExhibitions } from '@/lib/data/api';
 import { PageHeader } from '@/shared/components/PageHeader';
+import { MapWrapper } from '@/shared/components/MapWrapper';
 
 export default async function MapPage() {
   const exhibitions = await getExhibitions(true);
+
+  // Filter exhibitions that have coordinates for the map
+  const mapLocations = exhibitions
+    .filter((ex) => ex.latitude !== undefined && ex.longitude !== undefined)
+    .map((ex) => ({
+      id: ex.id,
+      title: ex.title,
+      location: ex.location,
+      latitude: ex.latitude!,
+      longitude: ex.longitude!,
+    }));
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
@@ -10,15 +22,19 @@ export default async function MapPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          <div className="aspect-[4/3] bg-[var(--color-light-gray)] border border-[var(--color-border)] flex items-center justify-center">
-            <p className="text-[var(--color-muted-gray)]">Map Canvas</p>
-          </div>
+          {mapLocations.length > 0 ? (
+            <MapWrapper locations={mapLocations} className="aspect-[4/3]" />
+          ) : (
+            <div className="aspect-[4/3] bg-[var(--color-light-gray)] flex items-center justify-center">
+              <p className="text-[var(--color-muted-gray)]">No locations with coordinates available</p>
+            </div>
+          )}
         </div>
         <div>
           <h2 className="text-xl font-semibold mb-6">Locations</h2>
           <div className="space-y-4">
             {exhibitions.map(exhibition => (
-              <div key={exhibition.id} className="p-4 border border-[var(--color-border)]">
+              <div key={exhibition.id} className="p-4">
                 <h3 className="font-semibold mb-1">{exhibition.title}</h3>
                 <p className="text-sm text-[var(--color-muted-gray)]">{exhibition.location}</p>
                 <a
@@ -41,4 +57,3 @@ export default async function MapPage() {
     </div>
   );
 }
-
