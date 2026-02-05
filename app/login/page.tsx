@@ -94,7 +94,7 @@ export default function LoginPage() {
         <ul className="text-xs text-[var(--color-muted-gray)] space-y-1">
           <li>Artist: shramenkoa33333@gmail.com / 12341234</li>
           <li>Visitor: romantrublono@gmail.com / gemini31</li>
-          <li>Organiser: scarandrya@gmail.com / 12345678</li>
+          <li>Organiser: scarandry@gmail.com / 12345678</li>
         </ul>
       </div>
     </div>
