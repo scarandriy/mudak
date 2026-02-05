@@ -6,7 +6,7 @@ export function Footer() {
     'Dmytro Shapiro',
     'Vitalii Krivkov',
     'Yaroslav Zabolotskiy',
-    'Yaroslaw Muzalevskiy',
+    'Yaroslav Muzalevskiy',
     'Giorgos Kotsias',
   ];
 
