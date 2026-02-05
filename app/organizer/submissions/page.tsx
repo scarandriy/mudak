@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { requireRole } from '@/lib/auth/server';
+import { requireAnyRole } from '@/lib/auth/server';
 import { getExhibitions } from '@/lib/data/api';
 import { PageHeader } from '@/shared/components/PageHeader';
 import { ExhibitionVerificationList } from '@/features/organizer/components/ExhibitionVerificationList';
@@ -7,7 +7,7 @@ import { EmptyState } from '@/shared/ui/EmptyState';
 
 export default async function SubmissionsPage() {
   try {
-    await requireRole('organizer');
+    await requireAnyRole(['organizer', 'admin']);
   } catch {
     redirect('/login');
   }

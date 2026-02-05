@@ -20,7 +20,16 @@ export default async function ExhibitionDetailPage({ params }: ExhibitionDetailP
     getServerUser(),
   ]);
 
-  if (!exhibition || !exhibition.isVisible || !exhibition.verified) {
+  if (!exhibition) {
+    notFound();
+  }
+
+  // Allow admins and organizers (who own the exhibition) to view unverified exhibitions
+  const isAdmin = user?.role === 'organizer';
+  const isOwner = user?.id === exhibition.organizerId;
+  const canViewUnverified = isAdmin || isOwner;
+  
+  if (!canViewUnverified && (!exhibition.isVisible || !exhibition.verified)) {
     notFound();
   }
 
