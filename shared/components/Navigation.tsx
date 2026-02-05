@@ -130,19 +130,19 @@ export function Navigation() {
             ))}
 
             {/* Mobile Auth */}
-            <div className="flex flex-col gap-4 pt-4 border-t border-gray-100">
+            <div className="flex flex-col gap-2 pt-4 border-t border-gray-100">
               {isLoading ? (
                 <span className="text-sm text-[var(--color-muted-gray)]">Loading...</span>
               ) : user ? (
                 <>
                   {user.role === 'artist' && (
                     <Link href="/artist" onClick={closeMobileMenu} className="text-sm font-medium py-2">
-                      Artist
+                      Artist Dashboard
                     </Link>
                   )}
                   {user.role === 'organizer' && (
                     <Link href="/organizer" onClick={closeMobileMenu} className="text-sm font-medium py-2">
-                      Organizer
+                      Organizer Dashboard
                     </Link>
                   )}
                   {user.role === 'visitor' && (
@@ -150,16 +150,23 @@ export function Navigation() {
                       Dashboard
                     </Link>
                   )}
-                  <span className="text-sm text-[var(--color-muted-gray)]">{user.name}</span>
-                  <button
-                    onClick={() => {
-                      logout();
-                      closeMobileMenu();
-                    }}
-                    className="text-sm font-medium py-2 text-left"
-                  >
-                    Logout
-                  </button>
+                  {user.role === 'admin' && (
+                    <Link href="/admin" onClick={closeMobileMenu} className="text-sm font-medium py-2">
+                      Admin Dashboard
+                    </Link>
+                  )}
+                  <div className="flex items-center justify-between py-2">
+                    <span className="text-sm text-[var(--color-muted-gray)]">{user.name}</span>
+                    <button
+                      onClick={() => {
+                        logout();
+                        closeMobileMenu();
+                      }}
+                      className="text-sm font-medium"
+                    >
+                      Logout
+                    </button>
+                  </div>
                 </>
               ) : (
                 <Link href="/login" onClick={closeMobileMenu} className="text-sm font-medium py-2">

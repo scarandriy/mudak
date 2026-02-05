@@ -1,10 +1,12 @@
 import { notFound } from 'next/navigation';
 import { getUserById, getArtworksByArtist, getExhibitionsByArtist } from '@/lib/data/api';
+import { getServerUser } from '@/lib/auth/server';
 import { PageHeader } from '@/shared/components/PageHeader';
 import { ArtworkCard } from '@/features/artworks/components/ArtworkCard';
 import { ExhibitionCard } from '@/features/exhibitions/components/ExhibitionCard';
 import { EmptyState } from '@/shared/ui/EmptyState';
 import { Divider } from '@/shared/ui/Divider';
+import { Badge } from '@/shared/ui/Badge';
 
 interface ArtistProfilePageProps {
   params: Promise<{ id: string }>;
@@ -12,15 +14,25 @@ interface ArtistProfilePageProps {
 
 export default async function ArtistProfilePage({ params }: ArtistProfilePageProps) {
   const { id } = await params;
-  const [artist, artworks, exhibitions] = await Promise.all([
+  const [artist, artworks, allExhibitions, currentUser] = await Promise.all([
     getUserById(id),
     getArtworksByArtist(id),
     getExhibitionsByArtist(id),
+    getServerUser(),
   ]);
 
   if (!artist || artist.role !== 'artist') {
     notFound();
   }
+
+  // Admins and the artist themselves can see all exhibitions
+  const isAdmin = currentUser?.role === 'admin';
+  const isOwnProfile = currentUser?.id === artist.id;
+  const canSeeAll = isAdmin || isOwnProfile;
+
+  const exhibitions = canSeeAll
+    ? allExhibitions
+    : allExhibitions.filter(ex => ex.verified && ex.isVisible);
 
   return (
     <div className="max-w-7xl mx-auto px-8 py-12">
@@ -103,7 +115,19 @@ export default async function ArtistProfilePage({ params }: ArtistProfilePagePro
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {exhibitions.map(exhibition => (
-              <ExhibitionCard key={exhibition.id} exhibition={exhibition} />
+              <div key={exhibition.id} className="relative">
+                <ExhibitionCard exhibition={exhibition} />
+                {canSeeAll && (!exhibition.verified || !exhibition.isVisible) && (
+                  <div className="flex gap-2 mt-2">
+                    {!exhibition.verified && (
+                      <Badge variant="warning">Not Verified</Badge>
+                    )}
+                    {!exhibition.isVisible && (
+                      <Badge variant="default">Hidden</Badge>
+                    )}
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         )}
