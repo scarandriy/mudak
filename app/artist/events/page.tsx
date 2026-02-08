@@ -42,7 +42,7 @@ export default async function ArtistEventsPage() {
       ) : (
         <div className="space-y-6">
           {events.map(event => (
-            <div key={event.id} className="p-6">
+            <div key={event.id} className="sm:py-6">
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h3 className="text-lg font-semibold mb-2">{event.title}</h3>

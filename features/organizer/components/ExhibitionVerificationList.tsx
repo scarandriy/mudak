@@ -77,41 +77,42 @@ export function ExhibitionVerificationList({ exhibitions }: ExhibitionVerificati
   };
 
   return (
-    <div className="space-y-6">
+    <div className="w-full space-y-4">
       {exhibitions.map(exhibition => {
         const startDate = new Date(exhibition.startDate);
         const endDate = new Date(exhibition.endDate);
 
         return (
-          <div key={exhibition.id} className="p-6">
-            <div className="mb-4">
-              <h3 className="text-lg font-semibold mb-2">{exhibition.title}</h3>
-              <p className="text-sm text-[var(--color-muted-gray)] mb-2">
-                Organizer:{' '}
-                <Link
-                  href={`/artists/${exhibition.organizerId}`}
-                  className="hover:underline"
-                >
-                  {exhibition.organizerName}
+          <div key={exhibition.id} className="w-full sm:py-6 rounded-lg">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+              <div className="flex-1 min-w-0">
+                <Link href={`/exhibitions/${exhibition.id}`} className="hover:underline">
+                  <h3 className="text-lg font-semibold">{exhibition.title}</h3>
                 </Link>
-              </p>
-              <p className="text-sm text-[var(--color-muted-gray)] mb-2">
-                {startDate.toLocaleDateString()} – {endDate.toLocaleDateString()}
-              </p>
-              <p className="text-sm text-[var(--color-muted-gray)] mb-2">{exhibition.location}</p>
-              {exhibition.capacity && (
-                <p className="text-sm text-[var(--color-muted-gray)] mb-2">
-                  Capacity: {exhibition.capacity}
+                <p className="text-sm text-[var(--color-muted-gray)] mt-1">
+                  by{' '}
+                  <Link
+                    href={`/artists/${exhibition.organizerId}`}
+                    className="hover:underline"
+                  >
+                    {exhibition.organizerName}
+                  </Link>
                 </p>
-              )}
-              <p className="text-sm mb-4">{exhibition.description}</p>
-              <Link
-                href={`/exhibitions/${exhibition.id}`}
-                className="text-sm font-medium underline"
-              >
-                View exhibition →
-              </Link>
+              </div>
+              <div className="flex flex-wrap gap-3 text-sm text-[var(--color-muted-gray)] sm:text-right shrink-0">
+                <span>{startDate.toLocaleDateString()} – {endDate.toLocaleDateString()}</span>
+                <span>·</span>
+                <span>{exhibition.location}</span>
+                {exhibition.capacity && (
+                  <>
+                    <span>·</span>
+                    <span>Capacity: {exhibition.capacity}</span>
+                  </>
+                )}
+              </div>
             </div>
+
+            <p className="text-sm mb-4">{exhibition.description}</p>
 
             {showFeedback[exhibition.id] && (
               <div className="mb-4">
@@ -126,7 +127,7 @@ export function ExhibitionVerificationList({ exhibitions }: ExhibitionVerificati
               </div>
             )}
 
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               <Button
                 onClick={() => handleVerify(exhibition.id)}
                 disabled={processingId === exhibition.id}

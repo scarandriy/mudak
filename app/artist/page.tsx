@@ -31,34 +31,34 @@ export default async function ArtistDashboard() {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <div className="p-6">
+        <div className="sm:py-6">
           <h3 className="text-2xl font-semibold mb-2">{artworks.length}</h3>
           <p className="text-sm text-[var(--color-muted-gray)]">Artworks</p>
         </div>
-        <div className="p-6">
+        <div className="sm:py-6">
           <h3 className="text-2xl font-semibold mb-2">{events.length}</h3>
           <p className="text-sm text-[var(--color-muted-gray)]">Events</p>
         </div>
-        <div className="p-6">
+        <div className="sm:py-6">
           <h3 className="text-2xl font-semibold mb-2">{events.filter(e => e.isVisible).length}</h3>
           <p className="text-sm text-[var(--color-muted-gray)]">Visible Events</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-        <Link href="/artist/artworks/new" className="group p-6 block">
+        <Link href="/artist/artworks/new" className="group py-6 block">
           <h3 className="text-lg font-semibold mb-2 group-hover:underline">Upload Artwork</h3>
           <p className="text-sm text-[var(--color-muted-gray)]">Add a new artwork to your collection</p>
         </Link>
-        <Link href="/artist/events/new" className="group p-6 block">
+        <Link href="/artist/events/new" className="group py-6 block">
           <h3 className="text-lg font-semibold mb-2 group-hover:underline">Create Event</h3>
           <p className="text-sm text-[var(--color-muted-gray)]">Create a new exhibition or event</p>
         </Link>
-        <Link href="/artist/artworks" className="group p-6 block">
+        <Link href="/artist/artworks" className="group py-6 block">
           <h3 className="text-lg font-semibold mb-2 group-hover:underline">Manage Artworks</h3>
           <p className="text-sm text-[var(--color-muted-gray)]">View and edit your artworks</p>
         </Link>
-        <Link href="/artist/events" className="group p-6 block">
+        <Link href="/artist/events" className="group py-6 block">
           <h3 className="text-lg font-semibold mb-2 group-hover:underline">Manage Events</h3>
           <p className="text-sm text-[var(--color-muted-gray)]">View and edit your events</p>
         </Link>

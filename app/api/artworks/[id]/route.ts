@@ -1,5 +1,6 @@
 import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { artworkRepository } from '@/lib/repositories/ArtworkRepository';
 import { initializeDatabase } from '@/lib/db/init';
 import { getServerUser } from '@/lib/auth/server';
@@ -61,6 +62,9 @@ export async function PATCH(
     }
 
     const updatedArtwork = await artworkRepository.update(id, updateData);
+
+    revalidatePath('/');
+    revalidatePath('/artworks');
     
     return NextResponse.json({ success: true, artwork: updatedArtwork });
   } catch {
@@ -105,6 +109,11 @@ export async function DELETE(
     }
 
     const success = await artworkRepository.delete(id);
+
+    if (success) {
+      revalidatePath('/');
+      revalidatePath('/artworks');
+    }
     
     return NextResponse.json({ success });
   } catch {

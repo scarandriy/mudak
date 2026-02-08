@@ -28,34 +28,34 @@ export default async function OrganizerDashboard() {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <div className="p-6">
+        <div className="sm:py-6">
           <h3 className="text-2xl font-semibold mb-2">{events.length}</h3>
           <p className="text-sm text-[var(--color-muted-gray)]">Events Managed</p>
         </div>
-        <div className="p-6">
+        <div className="sm:py-6">
           <h3 className="text-2xl font-semibold mb-2">{unverifiedExhibitions.length}</h3>
           <p className="text-sm text-[var(--color-muted-gray)]">Pending Verifications</p>
         </div>
-        <div className="p-6">
+        <div className="sm:py-6">
           <h3 className="text-2xl font-semibold mb-2">{totalRegistrations}</h3>
           <p className="text-sm text-[var(--color-muted-gray)]">Total Capacity</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <Link href="/organizer/submissions" className="group p-6 block">
+        <Link href="/organizer/submissions" className="group sm:py-6 block">
           <h3 className="text-lg font-semibold mb-2 group-hover:underline">Review Submissions</h3>
           <p className="text-sm text-[var(--color-muted-gray)]">
             {unverifiedExhibitions.length} pending verification{unverifiedExhibitions.length !== 1 ? 's' : ''}
           </p>
         </Link>
-        <Link href="/organizer/events" className="group p-6 block">
+        <Link href="/organizer/events" className="group sm:py-6 block">
           <h3 className="text-lg font-semibold mb-2 group-hover:underline">Manage Events</h3>
           <p className="text-sm text-[var(--color-muted-gray)]">
             {events.length} event{events.length !== 1 ? 's' : ''}
           </p>
         </Link>
-        <Link href="/organizer/artworks" className="group p-6 block">
+        <Link href="/organizer/artworks" className="group sm:py-6 block">
           <h3 className="text-lg font-semibold mb-2 group-hover:underline">Manage Artworks</h3>
           <p className="text-sm text-[var(--color-muted-gray)]">View and manage all artworks</p>
         </Link>

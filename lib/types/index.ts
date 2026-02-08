@@ -100,4 +100,3 @@ export interface TeamMember {
   createdAt: string;
   updatedAt: string;
 }
-
